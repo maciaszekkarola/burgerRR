@@ -17,8 +17,6 @@ const checkIfOrdered = (props) => {
     return (Object.values(props)).some(check);
 };
 
-
-
 const buildControls = (props) => {
     return <div className={classes.BuildControl}>
         {
@@ -32,10 +30,12 @@ const buildControls = (props) => {
             ))
         }
         <BuildControl />
-        <button disabled={!checkIfOrdered(props.disabledInfo)} className={classes.OrderButton}>Order</button>
+        <button
+            onClick={props.ordered}
+            disabled={!checkIfOrdered(props.disabledInfo)}
+            className={classes.OrderButton}
+        >Order</button>
     </div>
 };
-
-
 
 export default buildControls;

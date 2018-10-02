@@ -1,4 +1,4 @@
-import Ingredient from "./Ingredient";
+import Ingredient from "./Ingredient/Ingredient";
 import React from 'react';
 import classes from './Burger.css'
 

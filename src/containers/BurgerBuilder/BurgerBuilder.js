@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/Aux';
-import Burger from '../../components/Burger/Burger';
+import Burger from '../../components/Burger/BurgerIngredients/Burger';
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import classes from './BurgerBuilder.css';
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -19,7 +21,8 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        ordered: false
     };
 
     addIngredientHandler = (type) => {
@@ -42,7 +45,11 @@ class BurgerBuilder extends Component {
         updatedIngredients[type] = this.state.ingredients[type] - 1;
 
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+    };
 
+    order = (prop) => {
+        this.setState({ordered: true});
+        console.log(this.state.ordered);
     };
 
     render() {
@@ -59,10 +66,13 @@ class BurgerBuilder extends Component {
                 <Burger ingredients={this.state.ingredients}/>
                 <p className={classes.totalPrice}>Total: { this.state.totalPrice.toFixed(2) } $</p>
                 <BuildControls
+                    ordered={this.state.ordered}
                     disabledInfo={disabledInfo}
-
                     ingredientRemoved={this.removeIngredientHandler}
                     ingredientAdded={this.addIngredientHandler}/>
+                <Modal>
+                    <OrderSummary ingr={this.state.ingredients} total={this.state.totalPrice} />
+                </Modal>
             </Aux>
         )
     }
