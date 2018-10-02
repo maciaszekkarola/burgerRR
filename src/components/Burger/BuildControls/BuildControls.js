@@ -23,7 +23,6 @@ const buildControls = (props) => (
         }
         <BuildControl />
     </div>
-
 );
 
 export default buildControls;
