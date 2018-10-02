@@ -9,11 +9,21 @@ const controls = [
     { label: 'Meat', type: 'meat'}
 ];
 
-const buildControls = (props) => (
-    <div className={classes.BuildControl}>
+const checkIfOrdered = (props) => {
+    function check(el) {
+        return el === false;
+    }
+
+    return (Object.values(props)).some(check);
+};
+
+
+
+const buildControls = (props) => {
+    return <div className={classes.BuildControl}>
         {
             controls.map( ing => (
-                 <BuildControl
+                <BuildControl
                     disabledInfo={props.disabledInfo[ing.type]}
                     added={() => props.ingredientAdded(ing.type)}
                     removed={() => props.ingredientRemoved(ing.type)}
@@ -22,7 +32,10 @@ const buildControls = (props) => (
             ))
         }
         <BuildControl />
+        <button disabled={!checkIfOrdered(props.disabledInfo)} className={classes.OrderButton}>Order</button>
     </div>
-);
+};
+
+
 
 export default buildControls;
