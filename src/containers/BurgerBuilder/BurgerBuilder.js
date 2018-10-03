@@ -47,9 +47,8 @@ class BurgerBuilder extends Component {
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
     };
 
-    order = (prop) => {
+    order = () => {
         this.setState({ordered: true});
-        console.log(this.state.ordered);
     };
 
     render() {
@@ -66,11 +65,11 @@ class BurgerBuilder extends Component {
                 <Burger ingredients={this.state.ingredients}/>
                 <p className={classes.totalPrice}>Total: { this.state.totalPrice.toFixed(2) } $</p>
                 <BuildControls
-                    ordered={this.state.ordered}
+                    ordered={this.order}
                     disabledInfo={disabledInfo}
                     ingredientRemoved={this.removeIngredientHandler}
                     ingredientAdded={this.addIngredientHandler}/>
-                <Modal>
+                <Modal show={this.state.ordered}>
                     <OrderSummary ingr={this.state.ingredients} total={this.state.totalPrice} />
                 </Modal>
             </Aux>
